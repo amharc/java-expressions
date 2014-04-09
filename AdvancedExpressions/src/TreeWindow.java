@@ -199,7 +199,7 @@ public class TreeWindow extends JFrame {
 	private void evaluateExpression() {
 		try {
 			Double d = Double.parseDouble(argumentField.getText());
-			evalResult.setText(Double.toString(expression.eval(d)));
+			evalResult.setText(Double.toString(expression.evaluate(d)));
 		}
 		catch(NumberFormatException ex) {
 			evalResult.setText(""); //$NON-NLS-1$
@@ -243,7 +243,7 @@ public class TreeWindow extends JFrame {
 		@Override
 		public Object visit(UnaryOperator e) {
 			DefaultMutableTreeNode cur = new DefaultMutableTreeNode(e.operatorString());
-			cur.add((MutableTreeNode) e.getContents().accept(this));
+			cur.add((MutableTreeNode) e.getContent().accept(this));
 			return cur;
 		}
 		
