@@ -1,13 +1,17 @@
 package amharc.expr;
 
+/**
+ * Class representing the sum of two expressions
+ * @author Krzysztof Pszeniczny
+ */
 public class Plus extends BinaryOperator {
-	public Plus(Expression lhs, Expression rhs) {
+	Plus(Expression lhs, Expression rhs) {
 		super(lhs, rhs);
 	}
 	
 	@Override
-	public double eval(double x) {
-		return lhs.eval(x) + rhs.eval(x);
+	public double evaluate(double x) {
+		return lhs.evaluate(x) + rhs.evaluate(x);
 	}
 
 	@Override

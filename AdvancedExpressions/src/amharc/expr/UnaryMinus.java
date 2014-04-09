@@ -1,18 +1,23 @@
 package amharc.expr;
 
+/**
+ * Class representing unary minus applied to some expression
+ * 
+ * @author Krzysztof Pszeniczny
+ */
 public class UnaryMinus extends UnaryOperator {
-	public UnaryMinus(Expression exp) {
+	UnaryMinus(Expression exp) {
 		super(exp);
 	}
 	
 	@Override
-	public double eval(double x) {
-		return -exp.eval(x);
+	public double evaluate(double x) {
+		return -content.evaluate(x);
 	}
 	
 	@Override
 	public Expression negate() {
-		return exp;
+		return content;
 	}
 
 	@Override
@@ -22,15 +27,15 @@ public class UnaryMinus extends UnaryOperator {
 	
 	@Override
 	public String toString() {
-		if(exp.getPriority() > this.getPriority())
-			return "-" + exp;
+		if(content.getPriority() > this.getPriority())
+			return "-" + content;
 		else
-			return "-(" + exp + ")";
+			return "-(" + content + ")";
 	}
 	
 	@Override
 	public Expression derivative() {
-		return exp.derivative().negate();
+		return content.derivative().negate();
 	}
 	
 	@Override

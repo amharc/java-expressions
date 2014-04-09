@@ -1,5 +1,10 @@
 package amharc.expr;
 
+/**
+ * Singleton class representing constant equal to 1.0
+ * 
+ * @author Krzysztof Pszeniczny
+ */
 public final class OneConstant extends Constant {
 	private static final OneConstant instance = new OneConstant();
 	

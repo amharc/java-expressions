@@ -1,9 +1,20 @@
 package amharc.expr;
 
+/**
+ * Class representing constant expressions
+ * @author Krzysztof Pszeniczny
+ */
 public class Constant extends Literal {
 	private final double value;
 	
-	public Constant(double value) {
+	/**
+	 * Creates a constant.
+	 * Should not be used directly, use {@link Expression.getConstant(double)}
+	 * 
+	 * @see {@link Expression.getConstant(double)}
+	 * @param value Value to be held by the constant.
+	 */
+	Constant(double value) {
 		this.value = value;
 	}
 	
@@ -16,7 +27,7 @@ public class Constant extends Literal {
 	}
 	
 	@Override
-	public double eval(double x) {
+	public double evaluate(double x) {
 		return value;
 	}
 	
@@ -148,6 +159,11 @@ public class Constant extends Literal {
 		return visitor.visit(this);
 	}
 
+	/**
+	 * Get the value held by the expression
+	 * 
+	 * @return Value held by the expression
+	 */
 	public double getValue() {
 		return value;
 	}

@@ -1,5 +1,10 @@
 package amharc.expr;
 
+/**
+ * An abstract class providing abstract visitor pattern.
+ * 
+ * @author Krzysztof Pszeniczny
+ */
 public abstract class ExpressionVisitor {
 	public abstract Object visit(Expression e);
 	

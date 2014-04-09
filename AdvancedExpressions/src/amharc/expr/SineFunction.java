@@ -1,19 +1,23 @@
 package amharc.expr;
 
+/**
+ * Class representing cosine of some expression
+ * 
+ * @author Krzysztof Pszeniczny
+ */
 public class SineFunction extends UnaryOperator {
-
-	public SineFunction(Expression exp) {
-		super(exp);
+	SineFunction(Expression content) {
+		super(content);
 	}
 
 	@Override
-	public double eval(double x) {
-		return Math.sin(exp.eval(x));
+	public double evaluate(double x) {
+		return Math.sin(content.evaluate(x));
 	}
 
 	@Override
 	public Expression derivative() {
-		return exp.derivative().multiply(exp.cos());
+		return content.derivative().multiply(content.cos());
 	}
 
 	@Override

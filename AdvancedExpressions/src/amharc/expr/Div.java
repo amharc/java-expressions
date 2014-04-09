@@ -1,13 +1,17 @@
 package amharc.expr;
 
+/**
+ * Class representing the quotient of two expressions
+ * @author Krzysztof Pszeniczny
+ */
 public class Div extends BinaryOperator {
-	public Div(Expression lhs, Expression rhs) {
+	Div(Expression lhs, Expression rhs) {
 		super(lhs, rhs);
 	}
 	
 	@Override
-	public double eval(double x) {
-		return lhs.eval(x) / rhs.eval(x);
+	public double evaluate(double x) {
+		return lhs.evaluate(x) / rhs.evaluate(x);
 	}
 
 	@Override

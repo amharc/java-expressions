@@ -1,5 +1,10 @@
 package amharc.expr;
 
+/**
+ * Singleton class representing constant equal to 0.0
+ * 
+ * @author Krzysztof Pszeniczny
+ */
 public final class ZeroConstant extends Constant {
 	private static final ZeroConstant instance = new ZeroConstant();
 	

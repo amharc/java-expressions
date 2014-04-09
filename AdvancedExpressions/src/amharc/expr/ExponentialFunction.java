@@ -1,18 +1,23 @@
 package amharc.expr;
 
+/**
+ * Class representing exp of some expression
+ * 
+ * @author Krzysztof Pszeniczny
+ */
 public class ExponentialFunction extends UnaryOperator {
-	public ExponentialFunction(Expression exp) {
-		super(exp);
+	ExponentialFunction(Expression content) {
+		super(content);
 	}
 
 	@Override
-	public double eval(double x) {
+	public double evaluate(double x) {
 		return Math.exp(x);
 	}
 
 	@Override
 	public Expression derivative() {
-		return exp.derivative().multiply(this);
+		return content.derivative().multiply(this);
 	}
 	
 	@Override

@@ -1,5 +1,10 @@
 package amharc.expr;
 
+/**
+ * Singleton class representing the variable
+ * 
+ * @author Krzysztof Pszeniczny
+ */
 public class Variable extends Literal {
 	private static Variable instance = new Variable();
 	
@@ -10,7 +15,7 @@ public class Variable extends Literal {
 	}
 	
 	@Override
-	public double eval(double x) {
+	public double evaluate(double x) {
 		return x;
 	}
 	

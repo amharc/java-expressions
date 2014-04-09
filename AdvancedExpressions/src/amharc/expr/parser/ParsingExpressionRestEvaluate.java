@@ -26,17 +26,17 @@ class ParsingExpressionRestEvaluate extends AbstractParsingExpressionRest {
 			
 			@Override
 			public Object visit(Constant e) {
-				return lhs.eval(e.getValue());
+				return lhs.evaluate(e.getValue());
 			}
 			
 			@Override
 			public Object visit(ZeroConstant e) {
-				return lhs.eval(e.getValue());
+				return lhs.evaluate(e.getValue());
 			}
 			
 			@Override
 			public Object visit(OneConstant e) {
-				return lhs.eval(e.getValue());
+				return lhs.evaluate(e.getValue());
 			}
 		});
 		

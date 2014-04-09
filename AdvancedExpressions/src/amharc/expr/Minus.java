@@ -1,13 +1,17 @@
 package amharc.expr;
 
+/**
+ * Class representing the difference of two expressions
+ * @author Krzysztof Pszeniczny
+ */
 public class Minus extends BinaryOperator {
-	public Minus(Expression lhs, Expression rhs) {
+	Minus(Expression lhs, Expression rhs) {
 		super(lhs, rhs);
 	}
 
 	@Override
-	public double eval(double x) {
-		return lhs.eval(x) - rhs.eval(x);
+	public double evaluate(double x) {
+		return lhs.evaluate(x) - rhs.evaluate(x);
 	}
 	
 	@Override
