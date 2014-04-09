@@ -15,6 +15,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JTree;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
@@ -35,7 +37,7 @@ public class TreeWindow extends JFrame {
 	private JTextField expressionField;
 	private JTextField argumentField;
 	private JLabel evalResult, integrateResult;
-	private JButton evalButton, integrateButton, differentiateButton;
+	private JButton evalButton, integrateButton, differentiateButton, resetToSimplfiedButton;
 	
 	private JTextField beginField, endField, stepsField;
 	
@@ -52,6 +54,22 @@ public class TreeWindow extends JFrame {
 		
 		top.add(new JLabel(Messages.getString("TreeWindow.ExpressionLabelText")), BorderLayout.WEST); //$NON-NLS-1$
 		expressionField = new JTextField();
+		expressionField.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+				disableAll();
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+				disableAll();
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent arg0) {
+				disableAll();
+			}
+		});
 		top.add(expressionField, BorderLayout.CENTER);
 		
 		JButton parseButton = new JButton(Messages.getString("TreeWindow.ParseButtonText")); //$NON-NLS-1$
@@ -66,12 +84,24 @@ public class TreeWindow extends JFrame {
 		
 		JPanel out = new JPanel(new GridLayout(1, 2));
 		
+		JPanel expressionOut = new JPanel(new BorderLayout());
 		root = new DefaultMutableTreeNode();
 		model = new DefaultTreeModel(root);
 		tree = new JTree(model);
 		tree.setEditable(false);
-		//tree.setRootVisible(false);
-		out.add(new JScrollPane(tree));
+		expressionOut.add(new JScrollPane(tree), BorderLayout.CENTER);
+		
+		resetToSimplfiedButton = new JButton(Messages.getString("TreeWindow.ResetToSimplifiedButtonText")); //$NON-NLS-1$
+		resetToSimplfiedButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				expressionField.setText(expression.toString());
+				setExpression();
+			}
+		});
+		resetToSimplfiedButton.setEnabled(false);
+		expressionOut.add(resetToSimplfiedButton, BorderLayout.SOUTH);
+		out.add(expressionOut);
 		
 		JPanel evalPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
@@ -276,6 +306,7 @@ public class TreeWindow extends JFrame {
 	
 	private void setExpression() {
 		root.removeAllChildren();
+		resetToSimplfiedButton.setEnabled(true);
 		DefaultMutableTreeNode expressionRoot = (DefaultMutableTreeNode) expression.accept(new TreeVisitor());
 		root.add(expressionRoot);
 		model.nodeStructureChanged(root);
