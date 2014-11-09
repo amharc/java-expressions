@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -73,12 +74,7 @@ public class TreeWindow extends JFrame {
 		top.add(expressionField, BorderLayout.CENTER);
 		
 		JButton parseButton = new JButton(Messages.getString("TreeWindow.ParseButtonText")); //$NON-NLS-1$
-		parseButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				parseExpression();
-			}
-		});
+		parseButton.addActionListener(e -> parseExpression());
 		top.add(parseButton, BorderLayout.EAST);
 		this.add(top, BorderLayout.NORTH);
 		
@@ -92,12 +88,9 @@ public class TreeWindow extends JFrame {
 		expressionOut.add(new JScrollPane(tree), BorderLayout.CENTER);
 		
 		resetToSimplfiedButton = new JButton(Messages.getString("TreeWindow.ResetToSimplifiedButtonText")); //$NON-NLS-1$
-		resetToSimplfiedButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
+		resetToSimplfiedButton.addActionListener(e -> {
 				expressionField.setText(expression.toString());
 				setExpression();
-			}
 		});
 		resetToSimplfiedButton.setEnabled(false);
 		expressionOut.add(resetToSimplfiedButton, BorderLayout.SOUTH);
@@ -123,12 +116,7 @@ public class TreeWindow extends JFrame {
 		constraints.gridx = 0;
 		constraints.gridwidth = 2;
 		evalButton = new JButton(Messages.getString("TreeWindow.EvaluateLabelText")); //$NON-NLS-1$
-		evalButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				evaluateExpression();
-			}
-		});
+		evalButton.addActionListener(e -> evaluateExpression());
 		evalPanel.add(evalButton, constraints);
 		
 		constraints.gridy = 3;
@@ -169,12 +157,7 @@ public class TreeWindow extends JFrame {
 		constraints.gridx = 0;
 		constraints.gridwidth = 2;
 		integrateButton = new JButton(Messages.getString("TreeWindow.IntegrateButtonText")); //$NON-NLS-1$
-		integrateButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				integrateExpression();
-			}
-		});
+		integrateButton.addActionListener(e -> integrateExpression());
 		evalPanel.add(integrateButton, constraints);
 		
 		constraints.gridy = 9;
@@ -186,12 +169,7 @@ public class TreeWindow extends JFrame {
 		constraints.gridx = 0;
 		constraints.gridwidth = 2;
 		differentiateButton = new JButton(Messages.getString("TreeWindow.DifferentiateButtonText")); //$NON-NLS-1$
-		differentiateButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				differentiateExpression();
-			}
-		});
+		differentiateButton.addActionListener(e -> differentiateExpression());
 		evalPanel.add(differentiateButton, constraints);
 		
 		out.add(evalPanel);
@@ -202,7 +180,7 @@ public class TreeWindow extends JFrame {
 		
 		setPreferredSize(new Dimension(500, 300));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setResizable(false);
+		//setResizable(false);
 		pack();
 	}
 	
@@ -314,7 +292,9 @@ public class TreeWindow extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		TreeWindow wnd = new TreeWindow();
-		wnd.setVisible(true);
+		SwingUtilities.invokeLater(() -> {
+			TreeWindow wnd = new TreeWindow();
+			wnd.setVisible(true);
+		});
 	}
 }
